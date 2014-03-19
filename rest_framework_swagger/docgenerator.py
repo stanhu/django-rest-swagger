@@ -54,7 +54,7 @@ class DocumentationGenerator(object):
                 continue  # No one cares. I impose JSON.
 
             doc_parser = YAMLDocstringParser(
-                docstring=method_introspector.get_docs())
+                docstring=method_introspector.get_method_or_class_docs())
 
             serializer = self._get_method_serializer(
                 doc_parser, method_introspector)

@@ -185,6 +185,10 @@ class BaseMethodIntrospector(object):
     def get_docs(self):
         return ''
 
+    @abstractmethod
+    def get_method_or_class_docs(self):
+        return self.get_docs()
+
     def retrieve_docstring(self):
         """
         Attempts to fetch the docs for a class method. Returns None
@@ -289,11 +293,19 @@ class APIViewMethodIntrospector(BaseMethodIntrospector):
     def get_docs(self):
         """
         Attempts to retrieve method specific docs for an
-        endpoint. If none are available, the class docstring
-        will be used
+        endpoint.
         """
         return self.retrieve_docstring()
 
+    def get_method_or_class_docs(self):
+        """
+        Attempts to retrieve method-specific YAML docs for an
+        endpoint. If none are available, the class doc will
+        be used.
+        """
+        docstring = self.retrieve_docstring() or self.callback.__doc__
+
+        return docstring
 
 class ViewSetIntrospector(BaseViewIntrospector):
     """Handle ViewSet introspection."""
