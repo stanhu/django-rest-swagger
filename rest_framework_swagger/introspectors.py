@@ -591,11 +591,26 @@ class YAMLDocstringParser(object):
             pass
         return None
 
+    def get_produce_types(self):
+        """
+        Retrieves MIME types this API can produce
+        """
+        return self.object.get('produces', None)
+
+    def get_consume_types(self):
+        """
+        Retrieves MIME types this API can consume
+        """
+        return self.object.get('consumes', None)
+
     def get_response_type(self):
         """
         Docstring may define custom response class
         """
         return self.object.get('type', None)
+
+    def get_deprecated(self):
+        return self.object.get('deprecated', False)
 
     def get_response_messages(self):
         """

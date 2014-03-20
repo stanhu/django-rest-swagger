@@ -70,6 +70,18 @@ class DocumentationGenerator(object):
                 'type': response_type,
             }
 
+            produce_types = doc_parser.get_produce_types()
+            if produce_types:
+                operation.update({'produces': produce_types})
+
+            consume_types = doc_parser.get_consume_types()
+            if consume_types:
+                operation.update({'consumes': consume_types})
+
+            deprecated = doc_parser.get_deprecated()
+            if deprecated:
+                operation.update({'deprecated': deprecated})
+
             if doc_parser.yaml_error is not None:
                 operation['notes'] += "<pre>YAMLError:\n {err}</pre>".format(
                     err=doc_parser.yaml_error)
