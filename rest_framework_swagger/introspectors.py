@@ -185,7 +185,6 @@ class BaseMethodIntrospector(object):
     def get_docs(self):
         return ''
 
-    @abstractmethod
     def get_method_or_class_docs(self):
         return self.get_docs()
 
